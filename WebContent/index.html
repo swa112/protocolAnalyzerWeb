@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="protocolApp">
+<head>
+<meta charset="ISO-8859-1">
+<title>HLS Protocol Analyzer</title>
+<script	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-resource.js"></script>
+<script src="ProtocolAnalyzerController.js"> </script>
+<link href="ProtocolAnalyzer.css" rel="stylesheet">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body ng-controller="AnalyzerController">
+<div class="container">
+	<h1>HLS Protocol Analyzer</h1>
+	<div id="input" class="form-group">
+		<span><b>Enter URL to Analyze: </b></span>
+		<input id="urlInput" type="url" ng-model="url"/> 
+		<input type="button" value="Submit" class="btn-primary" ng-click="analyze()" />
+	</div>
+
+	<hr>
+	<div id="results" ng-show="isDisplayTable">
+		<div class="panel panel-primary">
+	  		<div class="panel-body">
+				<h2>Analysis Results </h2>
+				<span>Filter: 
+					<input id="filter" type="text" size="50" ng-model="criteria"/>
+				</span> 
+	
+		<table class="table-striped" >
+			<thead>
+			
+				<th class="th-center" ng-click="sort('$index')">Number 
+					<img ng-if="isSortDown('$index')" src="images/icon-sort-desc.gif"></img>
+				</th>
+				<th class="th-center" ng-click="sort('error')">Error Type
+					<img ng-if="isSortDown('error')" src="images/icon-sort-desc.gif"></img>
+				</th>
+				<th class="th-center" ng-click="sort('severity')">Severity
+					<img ng-if="isSortDown('severity')" src="images/icon-sort-desc.gif"></img>
+				</th>
+				<th class="th-center" ng-click="sort('fileName')">File
+					<img ng-if="isSortDown('fileName')" src="images/icon-sort-desc.gif"></img>
+				</th>
+				<th class="th-center" ng-click="sort('lineNumber')">Line Number
+					<img ng-if="isSortDown('lineNumber')" src="images/icon-sort-desc.gif"></img>
+				</th>
+				<th class="th-center">Details of Error</th>
+			</thead>
+			<tbody>
+			<tr ng-repeat="error in errors | filter:criteria | orderBy:sortField:reverse">
+				<td class="padTD">{{$index+1}}</td>
+				<td class="padTD">{{error.error}}</td>
+				<td class="padTD">{{error.severity}}</td>
+				<td class="padTD">{{error.fileName}}</td>
+				<td class="padTD">{{error.lineNumber}}</td>
+				<td class="padTD">{{error.message}}</td>
+			</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
+	</div>
+	</div>
+
+</body>
+</html>
