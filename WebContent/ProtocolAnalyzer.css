@@ -15,7 +15,11 @@
 
 .container {
     padding-left: 5px;
-     padding-right: 5px;
+    padding-right: 5px;
+}
+
+.formWidth {
+	width: 660px;
 }
 
 input[type="url"] {

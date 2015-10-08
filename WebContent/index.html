@@ -13,13 +13,14 @@
 <body ng-controller="AnalyzerController">
 <div class="container">
 	<h1>HLS Protocol Analyzer</h1>
-	<div id="input" class="form-group">
+	<div id="input" class="form-group formWidth">
 		<span><b>Enter URL to Analyze: </b></span>
-		<input id="urlInput" type="url" ng-model="url"/> 
-		<input type="button" value="Submit" class="btn-primary" ng-click="analyze()" />
+		<input id="urlInput" type="url" ng-model="url"/> <br/><br/>
+		<span><b>Analyze TS files?</b></span> 
+		<input id="analyzeTs" type="checkbox" ng-model="isAnalyzeTS" ng-true-value="'Y'" ng-false-value="'N'" />
+		<input type="button" value="Analyze" class="btn-primary" ng-click="analyze()" ng-disabled="isNoInput()" style="float: right;" />
 	</div>
-
-	<hr>
+	<br/>
 	<div id="results" ng-show="isDisplayTable">
 		<div class="panel panel-primary">
 	  		<div class="panel-body">

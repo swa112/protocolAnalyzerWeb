@@ -1,19 +1,21 @@
 var protocolApp = angular.module('protocolApp', ['ngResource']);
 
 protocolApp.factory('AnalyzerResource', function($resource){
-	return  $resource('http://localhost\\:8081/protocol-analyzer/stream-analyzer');
+	return  $resource('http://localhost\\:8081/protocal-analyzer/stream-analyzer');
 });
 
 protocolApp.controller('AnalyzerController', ['$scope', 'AnalyzerResource', function($scope, AnalyzerResource){
 	$scope.url = "";
 	$scope.isDisplayTable = false;
-	$scope.errors = [];
-	$scope.sortField= undefined;
+	$scope.errorList = [];
+	$scope.sortField= '$index';
 	$scope.reverse = false;
+	$scope.isAnalyzeTS = 'N';
 	
 	$scope.analyze = function(){
-		//alert($scope.url);
-		$scope.errors = AnalyzerResource.query({url:$scope.url}, function(){
+		//alert($scope.isAnalyzeTS);
+		$scope.isDisplayTable = false;
+		$scope.errors = AnalyzerResource.query({url:$scope.url, analyzeTS:$scope.isAnalyzeTS}, function(){			
 			$scope.isDisplayTable = true;
 		});
 	};
@@ -31,6 +33,12 @@ protocolApp.controller('AnalyzerController', ['$scope', 'AnalyzerResource', func
 		return $scope.sortField === fieldName && !$scope.reverse;
 	};
 	
+	$scope.isNoInput = function(){
+		if(angular.isDefined($scope.url)){
+			return $scope.url.length === 0;
+		}
+		return false;
+	}
 
 }]);
 
