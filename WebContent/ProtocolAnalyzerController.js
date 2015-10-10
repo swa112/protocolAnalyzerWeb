@@ -11,12 +11,16 @@ protocolApp.controller('AnalyzerController', ['$scope', 'AnalyzerResource', func
 	$scope.sortField= '$index';
 	$scope.reverse = false;
 	$scope.isAnalyzeTS = 'N';
+	$scope.isLoading = false;
 	
 	$scope.analyze = function(){
 		//alert($scope.isAnalyzeTS);
+		$scope.isLoading = true;
 		$scope.isDisplayTable = false;
 		$scope.errors = AnalyzerResource.query({url:$scope.url, analyzeTS:$scope.isAnalyzeTS}, function(){			
+			$scope.isLoading = false;
 			$scope.isDisplayTable = true;
+			
 		});
 	};
 	

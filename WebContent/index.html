@@ -21,6 +21,9 @@
 		<input type="button" value="Analyze" class="btn-primary" ng-click="analyze()" ng-disabled="isNoInput()" style="float: right;" />
 	</div>
 	<br/>
+	<div id="loading" ng-show="isLoading">
+		 <img id="spinner" class="displayed" ng-src="images/processing.gif" />
+	</div>
 	<div id="results" ng-show="isDisplayTable">
 		<div class="panel panel-primary">
 	  		<div class="panel-body">
